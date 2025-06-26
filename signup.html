@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sign Up - Yacht Lux</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(to right, #0c0f1a, #1b1f30);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #f0f2f5;
+    }
+    .signup-container {
+      background: rgba(30, 36, 50, 0.95);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #c6d4f5;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background-color: #252c3f;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+    }
+    input::placeholder {
+      color: #a0aabe;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #3751ff, #8ca6db);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(111, 186, 255, 0.4);
+    }
+    .success {
+      color: #9fffb4;
+      margin-top: 15px;
+    }
+    a {
+      color: #9dbdff;
+      display: block;
+      margin-top: 25px;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <h2>Join Yacht Lux</h2>
+    <input type="text" id="name" placeholder="Full Name" required />
+    <input type="email" id="email" placeholder="Email Address" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button onclick="register()">Sign Up</button>
+    <p class="success" id="msg"></p>
+    <a href="main.html">Enter the Experience</a>
+  </div>
+
+  <script>
+    function register() {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (name && email && password) {
+        localStorage.setItem("user", JSON.stringify({ name, email }));
+        document.getElementById("msg").innerText = "Welcome aboard, " + name + "!";
+      } else {
+        alert("Please fill in all fields.");
+      }
+    }
+  </script>
+</body>
+</html>
+
+

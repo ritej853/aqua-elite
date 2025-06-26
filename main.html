@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Yacht Lux - Explore Yachts</title>
+  <style>
+    body {
+      margin: 0;
+      background: #0e1525;
+      font-family: 'Segoe UI', sans-serif;
+      color: #f0f2f5;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: #151d30;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    }
+    nav h1 {
+      color: #89aaff;
+      font-size: 1.6em;
+    }
+    nav a {
+      color: #b4ccff;
+      margin-left: 20px;
+      text-decoration: none;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 2em;
+      margin-top: 40px;
+      color: #d0e0ff;
+    }
+    .yacht-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      padding: 40px;
+      justify-items: center;
+    }
+    .yacht {
+      background: #1d273c;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      width: 100%;
+      max-width: 320px;
+    }
+    .yacht img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .yacht-details {
+      padding: 20px;
+    }
+    .yacht-details h3 {
+      margin: 0;
+      color: #a3bfff;
+    }
+    .yacht-details p {
+      font-size: 0.95em;
+      color: #cfd8ee;
+    }
+    .yacht-details button {
+      margin-top: 10px;
+      padding: 10px;
+      width: 100%;
+      background: linear-gradient(135deg, #3751ff, #8ca6db);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+    }
+    .yacht-details button:hover {
+      opacity: 0.9;
+    }
+    .info-section {
+      background: #151d30;
+      padding: 60px 40px;
+      text-align: center;
+    }
+    .info-section h2 {
+      color: #c7d8ff;
+      margin-bottom: 20px;
+    }
+    .info-section p {
+      color: #aab8d9;
+      font-size: 1em;
+      max-width: 700px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>Yacht Lux</h1>
+    <div>
+      <a href="#about">About Us</a>
+      <a href="#contact">Contact</a>
+      <a href="cart.html">View Cart</a>
+    </div>
+  </nav>
+
+  <h2 class="section-title">Our Premier Yachts</h2>
+  <div class="yacht-grid">
+    <script>
+      const yachts = [
+        { name: "Majestic Pearl", price: 12000, img: "https://photos.superyachtapi.com/download/62888/large" },
+        { name: "Ocean Mirage", price: 9800, img: "https://image.yachtcharterfleet.com/w1277/h618/qh/ca/m2/k86b5f036/vessel/resource/2802559/charter-mirage-iv-yacht.jpg" },
+        { name: "Celestial Wave", price: 15500, img: "https://images.stockcake.com/public/8/a/1/8a17d3dc-84b8-4706-bef6-2e4088627c53_large/luxurious-yacht-twilight-stockcake.jpg" },
+        { name: "Golden Horizon", price: 13200, img: "https://www.cruiseline.co.uk/wp-content/uploads/2021/05/golden-horizon-tradewind-voyages-ship.jpg" },
+        { name: "Eclipse Dream", price: 14400, img: "https://i.ytimg.com/vi/Oi5msweot-o/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLC4wkHIDBCSSwinZLRTocNOmBYgXg" },
+        { name: "Azure Majesty", price: 16000, img: "https://images.squarespace-cdn.com/content/v1/5c0652942487fd21faf2d073/20208ac8-34f7-4f31-8c23-d85be7587e0c/luxury-yacht-for-sale-majesty-140-smartyacht.jpeg" },
+        { name: "Blue Opal", price: 10900, img: "https://i.pinimg.com/736x/ec/a2/d8/eca2d832e8bc69645b0ed4add7584a3c.jpg" },
+        { name: "Imperial Tide", price: 17200, img: "https://i.ytimg.com/vi/sMJ3Ygph9BM/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCEEeLR7brZS0KQPdYLNwaXjzlWRw" },
+        { name: "Diamond Voyage", price: 18000, img: "https://image.yachtcharterfleet.com/w696/h532/qh/ca/ow-1/kcf30502e/vessel/resource/1789078/charter-marybelle-yacht-48.jpg" }
+      ];
+
+      yachts.forEach(yacht => {
+        document.write(`
+          <div class="yacht">
+            <img src="${yacht.img}" alt="${yacht.name}" />
+            <div class="yacht-details">
+              <h3>${yacht.name}</h3>
+              <p>$${yacht.price.toLocaleString()} / Night</p>
+              <button onclick="addToCart('${yacht.name}', ${yacht.price})">Add to Cart</button>
+            </div>
+          </div>
+        `);
+      });
+    </script>
+  </div>
+  <h2 class="section-title">Jet Ski Adventures</h2>
+<div class="yacht-grid">
+  <script>
+    const jetskis = [
+      { name: "Sea Blazer", price: 300, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQX0sRIrUBEotAdHufVdWzQkFR84ROfXljxDQ&s" },
+      { name: "Wave Rider", price: 350, img: "https://rendezvous-dubai.com/wp-content/uploads/2020/05/c7-960x1149.jpg" },
+      { name: "Aqua Rocket", price: 400, img: "data:image/jpeg;base64,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" },
+      { name: "Thunder Splash", price: 375, img: "https://cdn.prod.website-files.com/6364d88dd010ce5c6f8aa8fc/6703a19b82917a3fd482f1ec_668b8894675eff5b3d41a6c1_Jet%2520Skiing%2520at%2520Jumeirah%2520Beach.jpeg" },
+      { name: "Velocity FX", price: 390, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQESevF6RH-T-n-5EFJRKVSq2QMe65eD4Voew&s" },
+      { name: "Hydro Vortex", price: 420, img: "https://cdn.samboat.fr/announcements-v2/653389c912770-l.jpeg" }
+    ];
+
+    jetskis.forEach(jet => {
+      document.write(`
+        <div class="yacht">
+          <img src="${jet.img}" alt="${jet.name}" />
+          <div class="yacht-details">
+            <h3>${jet.name}</h3>
+            <p>$${jet.price.toLocaleString()} / Hour</p>
+            <button onclick="addToCart('${jet.name}', ${jet.price})">Add to Cart</button>
+          </div>
+        </div>
+      `);
+    });
+  </script>
+</div>
+ <h2 class="section-title">Sunset Cruises</h2>
+<div class="yacht-grid" style="grid-template-columns: repeat(2, 1fr);">
+  <script>
+    const cruises = [
+      {
+        name: "Golden Dusk",
+        price: 4500,
+        img: "https://images.unsplash.com/photo-1523731407965-2430cd12f5e4?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        name: "Velvet Horizon",
+        price: 5100,
+        img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        name: "Amber Glow",
+        price: 4900,
+        img: "https://images.stockcake.com/public/6/6/8/6689e2bb-4bdf-4b93-904f-42141332cf35_large/sunset-yacht-dinner-stockcake.jpg"
+      },
+      {
+        name: "Crimson Bay",
+        price: 5300,
+        img: "https://cdn-imgix.headout.com/media/images/fc139868a956d6729fb2b2f8a9d2df9c-Cruise.jpg?auto=format&w=720&h=450&q=90&ar=16%3A10&crop=faces%2Ccenter&fit=crop"
+      }
+    ];
+
+    cruises.forEach(cruise => {
+      document.write(`
+        <div class="yacht">
+          <img src="${cruise.img}" alt="${cruise.name}" />
+          <div class="yacht-details">
+            <h3>${cruise.name}</h3>
+            <p>$${cruise.price.toLocaleString()} / Sunset Tour</p>
+            <button onclick="addToCart('${cruise.name}', ${cruise.price})">Add to Cart</button>
+          </div>
+        </div>
+      `);
+    });
+  </script>
+</div>
+
+
+  <div class="info-section" id="about">
+    <h2>About Us</h2>
+    <p>Yacht Lux is your exclusive gateway to the world's most luxurious private yacht experiences. Our fleet is hand-picked to offer the highest standard of elegance, privacy, and adventure. We specialize in crafting tailored escapes for elite clientele.</p>
+  </div>
+
+  <div class="info-section" id="contact">
+    <h2>Contact Us</h2>
+    <p>Reach our concierge team 24/7 at <strong>concierge@yachtlux.com</strong> or call us at <strong>+1 (800) 555-YACHT</strong>. Let us turn your dream escape into reality.</p>
+  </div>
+
+  <script>
+    function addToCart(name, price) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const existing = cart.find(item => item.name === name);
+      if (existing) {
+        existing.quantity++;
+      } else {
+        cart.push({ name, price, quantity: 1 });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(name + " added to your cart.");
+    }
+  </script>
+</body>
+</html>

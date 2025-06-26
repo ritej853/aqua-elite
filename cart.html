@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Yacht Lux - Cart</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(145deg, #0a0f1f, #1b253c);
+      font-family: 'Segoe UI', sans-serif;
+      color: #f0f2f5;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: #101623;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+    }
+
+    nav h1 {
+      color: #c0d8ff;
+      font-size: 1.6em;
+    }
+
+    nav a {
+      color: #c0d8ff;
+      margin-left: 20px;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 60px auto;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 40px;
+      border-radius: 16px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    h2 {
+      text-align: center;
+      color: #d2e3ff;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    th, td {
+      padding: 16px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #1c283d;
+      color: #aad4ff;
+      font-size: 1em;
+    }
+
+    td {
+      background-color: #24334d;
+    }
+
+    input[type="number"] {
+      width: 60px;
+      padding: 5px;
+      border-radius: 5px;
+      border: none;
+      text-align: center;
+      background-color: #1b2a3e;
+      color: #fff;
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #f03e3e;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff5959;
+    }
+
+    .summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .payment-methods {
+      color: #aad4ff;
+    }
+
+    .payment-methods select {
+      padding: 8px;
+      border-radius: 6px;
+      background-color: #1b2a3e;
+      color: #fff;
+      border: none;
+      font-size: 1em;
+    }
+
+    .total {
+      font-size: 1.3em;
+      color: #d0e4ff;
+    }
+
+    .checkout-btn {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #3a82ff, #6ba6ff);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .checkout-btn:hover {
+      transform: scale(1.03);
+      background: linear-gradient(135deg, #5599ff, #84b7ff);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>Yacht Lux</h1>
+    <div>
+      <a href="main.html">Back to Main</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>Your Luxurious Cart</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Days</th>
+          <th>Subtotal</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody id="cart-body"></tbody>
+    </table>
+
+    <div class="summary">
+      <div class="payment-methods">
+        <label for="payment-method">Payment Method:</label>
+        <select id="payment-method">
+          <option value="card">Credit/Debit Card</option>
+          <option value="paypal">PayPal</option>
+        </select>
+      </div>
+      <div class="total" id="cart-total">Total: $0</div>
+      <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+    </div>
+  </div>
+
+  <script>
+    const cartBody = document.getElementById("cart-body");
+    const cartTotal = document.getElementById("cart-total");
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    function renderCart() {
+      cartBody.innerHTML = "";
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        if (!item.days) item.days = 1;
+        const subtotal = item.price * item.quantity * item.days;
+        total += subtotal;
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>$${item.price.toLocaleString()}</td>
+          <td><input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)"></td>
+          <td><input type="number" value="${item.days}" min="1" onchange="updateDays(${index}, this.value)"></td>
+          <td>$${subtotal.toLocaleString()}</td>
+          <td><button onclick="removeItem(${index})">Remove</button></td>
+        `;
+        cartBody.appendChild(row);
+      });
+
+      cartTotal.textContent = `Total: $${total.toLocaleString()}`;
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
+    function updateQuantity(index, value) {
+      cart[index].quantity = parseInt(value);
+      renderCart();
+    }
+
+    function updateDays(index, value) {
+      cart[index].days = parseInt(value);
+      renderCart();
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+
+    function checkout() {
+      const method = document.getElementById("payment-method").value;
+      alert("Checkout successful with " + (method === "paypal" ? "PayPal" : "Credit/Debit Card") + "!\nThank you for choosing Yacht Lux.");
+      localStorage.removeItem("cart");
+      window.location.reload();
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
+
+
+
